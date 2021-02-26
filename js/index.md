@@ -42,11 +42,9 @@ export function Decrypt(word) {
   var decryptedStr = decryptedData.toString(CryptoJS.enc.Utf8)
   return decryptedStr
 }
-```
 
-**使用方式：**
+// 使用方式：
 
-```js
 import { Encrypt, Decrypt } from '@/libs/crypto.js'
 
 setPassword(Encrypt(values.password)) // 加密保存

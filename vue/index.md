@@ -1,6 +1,6 @@
 ### 2020-2-26
 
-#### event bus 插件
+#### 1.event bus 插件
 
 ```js
 const bus = function (Vue) {
