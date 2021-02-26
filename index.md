@@ -6,4 +6,5 @@
 <li><a href='./react'>REACT</a></li>
 <li><a href='./vue'>VUE</a></li>
 <li><a href='./http'>HTTP</a></li>
+<li><a href='./others'>其他</a></li>
 </ul>
