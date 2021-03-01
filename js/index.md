@@ -51,3 +51,21 @@ setPassword(Encrypt(values.password)) // 加密保存
 
 Decrypt(getPassword()) // 解密输出
 ```
+
+### 2020-3-1
+
+#### 1.awaitTo-js 解决 await 捕获错误信息
+
+```js
+// @params {Function} promise await后面的函数
+
+const awaitTo = (promise) => {
+  return promise
+    .then((data) => {
+      return [null, data]
+    })
+    .catch((err) => {
+      return [err]
+    })
+}
+```
