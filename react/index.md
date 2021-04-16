@@ -21,3 +21,24 @@ useEffect(() => {
 
 // 这样一来，再次进入页面的时候会重新调用graph = new G6.Graph({...})，重新生成canvas画布
 ```
+
+### 2021-4-16
+
+#### 1.ANTV G6 在 React 注册事件会频繁触发问题
+
+```js
+// 问题描述:react函数组件中，在useEffect里面注册的graph = new G6.graph，graph.on('node:click',()=>{...})
+export default function MapComponent() {
+  let graph = null
+  useEffect(() => {
+    graph = new G6.graph({})
+    // 如果在这边注册事件，就会变化一次注册一次事件，比如多加一个node
+  }, [nodes, edges])
+
+  // 必须重新写一个useEffect[]来为graph仅注册一次事件
+  useEffect(()=>{
+    graph.on('node:click',()=>{...})
+  },[])
+}
+
+```
