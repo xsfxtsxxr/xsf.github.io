@@ -42,3 +42,22 @@ export default function MapComponent() {
 }
 
 ```
+### 2021-4-23
+
+#### 1.ANTD Notification通知提醒框中的文字不换行
+
+```js
+// 添加样式：white-space:pre-line, normal模式下\n会转变为空格
+const openNotification = () => {
+  notification.open({
+    message: 'Notification Title',
+    description:
+      'This is the content of the notification. \n This is the content of the notification.',
+    className: 'custom-class',
+    style: {
+      whiteSpace: 'pre-line',
+    },
+  });
+};
+
+```
