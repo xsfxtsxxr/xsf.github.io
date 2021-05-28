@@ -61,3 +61,12 @@ const openNotification = () => {
 };
 
 ```
+
+### 2021-5-28
+
+#### 1.formitem 里面的input输入框每次输入一个字符就会失去焦点
+
+```
+1.先检查是否给formitem添加了唯一key
+2.检查是否因为input的onChange事件做了setState操作，重复更新了input的数据
+```
