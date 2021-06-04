@@ -70,3 +70,12 @@ const openNotification = () => {
 1.先检查是否给formitem添加了唯一key
 2.检查是否因为input的onChange事件做了setState操作，重复更新了input的数据
 ```
+
+### 2021-6-4
+
+#### 1.React-router嵌套路由
+
+```
+1.嵌套路由的重点在于，嵌套路由，不能在父级加 exact(精准匹配)，因为先要匹配 父级 然后才能匹配 子集
+2.比如：/nested/a ， 会先匹配父级 /nested 后才能匹配 /nested/a
+```
