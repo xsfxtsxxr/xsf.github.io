@@ -54,7 +54,7 @@ Decrypt(getPassword()) // 解密输出
 
 ### 2020-3-1
 
-#### 1.awaitTo-js 解决 await 捕获错误信息
+#### awaitTo-js 解决 await 捕获错误信息
 
 ```js
 // @params {Function} promise await后面的函数
@@ -68,4 +68,23 @@ const awaitTo = (promise) => {
       return [err]
     })
 }
+```
+
+### 2021-9-24
+
+#### polyfill Promise.allSettled
+
+```js
+export const allSettled = (promises) => {
+  if (!Promise.allSettled) {
+    return Promise.all(
+      promises.map((promise) =>
+        promise
+          .then((value) => ({ status: 'fulfilled', value }))
+          .catch((reason) => ({ status: 'rejected', reason }))
+      )
+    );
+  }
+  return Promise.allSettled(promises);
+};
 ```
