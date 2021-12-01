@@ -88,3 +88,11 @@ export const allSettled = (promises) => {
   return Promise.allSettled(promises);
 };
 ```
+
+### 2021-12-1
+
+#### ASCII 正则
+
+```js
+const asciiRegex = /^[\x00-\x7f]*$/;
+```
