@@ -55,7 +55,7 @@ code .
 
 ### 2021-5-28
 
-#### 1.webpack开启gzip压缩
+#### 1.webpack 开启 gzip 压缩
 
 ```js
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -94,4 +94,44 @@ new CompressionWebpackPlugin({
     ],
   ],
 }
+```
+
+#### 3.git patch 方法
+
+```js
+/*
+1.创建补丁patch文件
+某个提交的patch
+git format-patch 【commit sha1 id】-n
+n指从sha1 id对应的commit开始算起n个提交，如果只打包指定某一条commit，n就传1
+*/
+
+git format-patch 2a2fb4539925bfa4a141fe492d9828d030f7c8a8 -1
+
+// 某两次提交之间的所有patch
+git format-patch 【commit sha1 id】..【commit sha1 id】
+
+// 2、使用patch补丁
+git apply 【path/xxx.patch】 // 这里的path就是patch文件存放的文件路径
+```
+
+#### 4.git 批量删除本地分支
+
+```js
+git branch |grep 'xxx' |xargs git branch -D // xxx 要替换成分支名称的搜索关键词
+
+/*
+1. grep 很常见，是以上三个命令我唯一认识的，名称是 global regular expression print（全局正则表达式输出)的缩写，是Linux 提供的一个搜索工具，搭配不同参数使用，几乎可以做到搜索任何东西，文件，文件夹，文本内容，搜索结果的总数等。这有篇不错的文章，想了解的同学可以去看下。
+
+2. xargs 命令配合 | 使用，将前一条指令的输出流向会作为后一条指令的参数输入
+命令配合 | 使用，将前一条指令的输出流向会作为后一条指令的参数输入。
+指令1 | xargs 指令2 | ...
+*/
+```
+
+#### 5.git 统计项目中所有人提交次数
+
+```js
+// 其中 --no-merges参数为了排除一些合并操作的记录，不然会出来很多条
+git log --author="userName" --since="2019-12-01" --until="2019-12-19" --oneline --no-merges | wc -l
 ```

@@ -52,6 +52,18 @@ setPassword(Encrypt(values.password)); // 加密保存
 Decrypt(getPassword()); // 解密输出
 ```
 
+#### 4.模拟异步方法
+
+```js
+testFunction() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 3000);
+  });
+}
+```
+
 ### 2020-3-1
 
 #### awaitTo-js 解决 await 捕获错误信息
@@ -68,6 +80,13 @@ const awaitTo = (promise) => {
       return [err];
     });
 };
+
+const [error, data] = await awaitTo(Promise.resolve("success"));
+if (error) {
+  console.log("error", error);
+} else {
+  console.log(data);
+}
 ```
 
 ### 2021-9-24
@@ -99,13 +118,84 @@ const asciiRegex = /^[\x00-\x7f]*$/;
 
 ### 2021-12-6
 
-#### 用 setTimeout 代替 setInterval
+#### 1.用 setTimeout 代替 setInterval
 
 ```js
 const timeFun = (ms) => {
-  setTimeout(function () { // 这里不可以用箭头函数，否则无法使用arguments.callee函数
+  setTimeout(function () {
+    // 这里不可以用箭头函数，否则无法使用arguments.callee函数，就得用timeFun指定函数名
     console.log(new Date().toLocaleTimeString());
+    // setTimeout(timeFun, ms);
     setTimeout(arguments.callee, ms);
   }, ms);
 };
+```
+
+#### 2.防抖节流函数
+
+```js
+// 防抖：短时间内大量触发同一事件，只会执行一次函数
+function debounce(fn, time) {
+  let timer = null;
+  return function () {
+    // 不可以用箭头函数，否则下面的arguments不可用
+    let context = this; // 放里面， 符合用户调用习惯
+    let args = [...arguments];
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    timer = setTimeout(() => fn.apply(context, args), time);
+  };
+}
+
+// 节流： 在指定时间内只执行一次
+
+// 1.定时器方案
+function throttle1(fn, time) {
+  let timer = null,
+    first = true;
+  return function () {
+    const context = this;
+    const args = [...arguments];
+    if (first) {
+      // 第一次执行
+      first = false;
+      fn.call(context, args);
+    }
+    if (!timer) {
+      timer = setInterval(() => {
+        fn.apply(this, args);
+        timer = null;
+        clearInterval(timer);
+      }, time);
+    }
+  };
+}
+
+// 2.时间戳方案
+function throttle2(fn, wait) {
+  var pre = Date.now();
+  return function () {
+    var context = this;
+    var args = [...arguments];
+    var now = Date.now();
+    if (now - pre >= wait) {
+      fn.apply(context, args);
+      pre = Date.now(); // 更新初始时间
+    }
+  };
+}
+```
+
+#### 3.平级节点转树节点
+
+```js
+const flatToTree = (arr, id, key = "parentId") => {
+  return arr
+    .filter((item) => item[key] === id)
+    .map((item) => ({ ...item, children: flatToTree(arr, item.id) }));
+};
+
+const treeData = flatToTree(flatData);
 ```
