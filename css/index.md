@@ -45,3 +45,80 @@ flex: 0 0 200px;
 4.display:table-cell / table-caption / inline-block / flex / inline-flex
 5.position 不为 static 或者 relative，可以属性设置为 absolute 或 fixed
 ```
+
+#### 5. CSS实现不断扩大的圆点
+```html
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta data-n-head="1" name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #031013;
+    }
+
+    .container {
+      width: 400px;
+      height: 400px;
+    }
+
+    .pulse {
+      background-color: #00E0FF;
+      height: 20px;
+      width: 20px;
+      border-radius: 100%;
+      position: relative;
+    }
+
+    .ring {
+      position: absolute;
+      background-color: inherit;
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      opacity: 0.3;
+      animation: pulsing 4s ease-out infinite;
+    }
+
+    .ring:nth-of-type(1) {
+      animation-delay: -1s;
+    }
+
+    .ring:nth-of-type(2) {
+      animation-delay: -2s;
+    }
+
+    .ring:nth-of-type(3) {
+      animation-delay: -3s;
+    }
+
+
+    @keyframes pulsing {
+      100% {
+        transform: scale(3.75);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="pulse">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
+```
