@@ -122,3 +122,11 @@ flex: 0 0 200px;
 
 </html>
 ```
+
+#### 6. 当svg图片设置宽度100%，高度100%，无法完全适配父容器的宽高时候
+
+```
+需要修改svg文件，添加属性 preserveAspectRatio="none meet"
+
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="none meet" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">......</svg>
+```
